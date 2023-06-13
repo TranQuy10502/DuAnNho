@@ -1,0 +1,22 @@
+﻿@model WebDuAnNho.Models.ProductCategory
+@{
+    var temp =  new WebDuAnNho.Controllers.MenuController().GetProductCategories();
+    ViewBag.DataProduct = temp.Result;
+}
+
+@if (@ViewBag.DataProduct != null)
+{
+    <ul class="sidebar_categories">
+        @foreach (var item in @ViewBag.DataProduct)
+        {
+            if (ViewBag.DataProduct.CateId == item.Id)
+            {
+                <li class="active"><a href="/danh-muc-san-pham/@item.Alias-@(item.Id)"><span><i class="fa fa-angle-double-right" aria-hidden="true"></i></span>@item.Title</a></li>
+            }
+            else
+            {
+                <li><a href="/danh-muc-san-pham/@item.Alias-@(item.Id)">@item.Title</a></li>
+            }
+        }
+    </ul>
+}

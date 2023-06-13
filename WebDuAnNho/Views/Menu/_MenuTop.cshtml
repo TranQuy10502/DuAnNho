@@ -1,0 +1,23 @@
+﻿@using Microsoft.AspNetCore.Mvc
+@using Microsoft.AspNetCore.Mvc.Rendering
+@{
+    var temp = new WebDuAnNho.Controllers.MenuController().GetCategories();
+    ViewBag.DataCategory = temp.Result;
+}
+
+@if (@ViewBag.DataCategory != null)
+{
+    <ul class="navbar_menu">
+        @foreach (var item in @ViewBag.DataCategory)
+        {
+            if (item.Alias.Equals("trang-chu"))
+            {
+                item.Alias = "";
+            }
+            <li><a href="/@item.Alias">@item.Title</a></li>
+        }
+
+    </ul>
+}
+
+

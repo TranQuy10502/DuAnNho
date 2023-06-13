@@ -1,0 +1,48 @@
+﻿
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model IEnumerable<WebDuAnNho.Models.ProductCategory>
+@*@{
+    var temp = new WebDuAnNho.Controllers.MenuController().GetProductCategories();
+    ViewBag.DataProductCategory = temp.Result;
+}*@
+@if (@ViewBag.DataProductCategory != null || Model != null)
+{
+        <div class="row">
+            <div class="col text-center">
+                <div class="section_title new_arrivals_title">
+                    <h2>New Arrivals</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row align-items-center">
+            <div class="col text-center">
+                <div class="new_arrivals_sorting">
+                    <ul class="arrivals_grid_sorting clearfix button-group filters-button-group">
+                        <li class="grid_sorting_button button d-flex flex-column justify-content-center align-items-center active is-checked" data-filter="*">all</li>
+                    @foreach (var item in @ViewBag.DataProductCategory )
+                    {
+                        @*@using (Html.BeginForm("index", "News", FormMethod.Get, new { }))
+                        {
+                            <div class="input-group input-group-sm">
+                                @Html.TextBox("Searchtext",null, new { @class = "form-control" })
+                                <span class="input-group-append">
+                                    <button type="submit" class="btn btn-info btn-flat">Tìm kiếm</button>
+                                </span>
+                            </div>
+                        }*@
+                        <li class="grid_sorting_button button d-flex flex-column justify-content-center align-items-center" data-filter="@Html.Raw(item.Alias)">@item.Title</li>
+                    }
+                    </ul>
+                </div>
+            </div>
+        </div>
+     <div class="row">
+        <div class="col">
+            <div class="product-grid" data-isotope='{ "itemSelector": ".product-item", "layoutMode": "fitRows" }'>
+                @await Html.PartialAsync("/Views/Product/Partial_ItemsByCateId.cshtml")
+            </div>
+        </div>
+    </div>
+}
